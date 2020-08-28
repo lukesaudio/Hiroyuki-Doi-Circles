@@ -45,6 +45,7 @@ class ofApp : public ofBaseApp{
 		vector<Circle> circlesArray;
 
 		ofImage exportScreen;
+		int counter = 0;
 
 		
 

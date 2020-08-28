@@ -15,7 +15,7 @@ void ofApp::setup()
 	posX = size * 2;
 	posY = size * 2;
 	
-	numOfCircles = 600000;
+	numOfCircles = 600000; //Can change the density of circles here
 
 	circlesArray.resize(numOfCircles);
 
@@ -82,11 +82,17 @@ void ofApp::draw()
 		*/
 
 
-		if (circlesArray[i].x + circlesArray[i].y < ofGetWidth() + ofGetHeight())
+		if (circlesArray[i].x + circlesArray[i].y < ofGetWidth() + ofGetHeight()) //if the point is both outside the bottom and side of the screen
 		{
+			//Change the ofSetColour here to change the colour disperstion across the circles
 			ofSetColor(ofMap(circlesArray[i].x + circlesArray[i].y, 0, ofGetWidth() + ofGetHeight(), 0, 255), circlesArray[i].x, circlesArray[i].y);
 
 			ofPushMatrix();
+
+
+			/*
+			This rotation code rotates the canvas uniformly with push and pop. If you change the max rotation or the step counter you get some awesome effects
+			*/
 
 			ofRotateDeg(rotation);
 			ofDrawCircle(circlesArray[i].x, circlesArray[i].y, circlesArray[i].size);
@@ -105,8 +111,12 @@ void ofApp::keyPressed(int key)
 {
 	if (key == ' ')
 	{
+		//Use the space key to save your file to /data/bin 
+		//when you restart the program, the image counter is reset to 0, so make sure you move your saved images every session to avoid overwriting due to same file names
 		exportScreen.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
-		exportScreen.saveImage("testImg.png", ofImageQualityType::OF_IMAGE_QUALITY_BEST);
+		string temp ("image" + std::to_string(counter) + ".png");
+		exportScreen.saveImage(temp, ofImageQualityType::OF_IMAGE_QUALITY_BEST);
+		counter++;
 	}
 }
 

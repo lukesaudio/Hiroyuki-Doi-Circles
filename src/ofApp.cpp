@@ -20,16 +20,13 @@ void ofApp::setup()
 	circlesArray.resize(numOfCircles);
 
 
-
 	for (int i = 0; i < numOfCircles; i++)
 	{
-
 
 		if (posX > ofGetWidth())
 		{
 			posX = 0;
 			posY += size * 2;
-
 
 		}
 
@@ -39,9 +36,7 @@ void ofApp::setup()
 		circlesArray[i].y = posY;
 		circlesArray[i].size = ofRandom(1.0, 4.0);
 		
-
 		posX += size * 2;
-
 	}
 }
 
@@ -81,7 +76,6 @@ void ofApp::draw()
 
 		*/
 
-
 		if (circlesArray[i].x + circlesArray[i].y < ofGetWidth() + ofGetHeight()) //if the point is both outside the bottom and side of the screen
 		{
 			//Change the ofSetColour here to change the colour disperstion across the circles
@@ -100,9 +94,7 @@ void ofApp::draw()
 			if (rotation > 360) rotation = 0;
 
 			ofPopMatrix();
-
 		}
-
 	}
 }
 
@@ -112,11 +104,10 @@ void ofApp::keyPressed(int key)
 	if (key == ' ')
 	{
 		//Use the space key to save your file to /data/bin 
-		//when you restart the program, the image counter is reset to 0, so make sure you move your saved images every session to avoid overwriting due to same file names
-		exportScreen.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
-		string temp ("image" + std::to_string(counter) + ".png");
+		//each image is saved with a unique datetimestamp
+        string temp ("image" + ofGetTimestampString() + ".png");
+
 		exportScreen.saveImage(temp, ofImageQualityType::OF_IMAGE_QUALITY_BEST);
-		counter++;
 	}
 }
 
@@ -175,11 +166,7 @@ void ofApp::drawNewCircles(int amountOfCircles)
 	numOfCircles = amountOfCircles;
 	circlesArray.clear();
 	circlesArray.resize(amountOfCircles);
-
 	resetCircles();
-
-
-
 }
 
 void ofApp::resetCircles()
@@ -188,29 +175,21 @@ void ofApp::resetCircles()
 
 	for (int i = 0; i < numOfCircles; i++)
 	{
-
 		size = 20;
 
 		if (posX > ofGetWidth())
 		{
 			posX = 0;
 			posY += size * 2;
-
-
 		}
 
 		ofColor temp;
-
 		circlesArray[i].x = posX;
 		circlesArray[i].y = posY;
 		circlesArray[i].size = size;
-
 		circlesArray[i].colour.r = ofRandom(0, 255);
 		circlesArray[i].colour.g = ofRandom(0, 255);
 		circlesArray[i].colour.b = ofRandom(0, 255);
-
-
 		posX += size;
-
 	}
 }
